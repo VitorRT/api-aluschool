@@ -80,7 +80,7 @@ class PessoaController {
             }
             
         } catch (error) {
-            
+            this.#sendError(error, res);
         }
     }
 
