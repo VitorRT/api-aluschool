@@ -12,4 +12,8 @@ module.exports = router
 .post(end, controller.postPerson)
 .put(endid, controller.editPerson)
 .delete(endid, controller.deletePerson)
+.get(`${end}/:estudanteId/matriculas/:matriculaId`, controller.getOneMatricula)
+.post(`${end}/:estudanteId/matriculas`, controller.registerMatricula)
+.put(`${end}/:estudanteId/matriculas/:matriculaId`, controller.editMatricula)
+.delete(`${end}/:estudanteId/matriculas/:matriculaId`, controller.deleteMatricula)
 ;

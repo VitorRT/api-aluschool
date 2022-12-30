@@ -84,6 +84,84 @@ class PessoaController {
         }
     }
 
+    // http://localhost:3000/pessoas/:estudanteId/matriculas/:matriculaId
+    static async getOneMatricula (req, res) {
+        const { estudanteId, matriculaId } = req.params;
+
+        try {
+            const oneMatricula = await db.Matriculas.findOne({
+                where: {
+                    id: Number(matriculaId),
+                    estudante_id: Number(estudanteId)
+                }
+            })
+            return res.status(200).json(oneMatricula);
+        } catch (error) {
+            this.#sendError(error, res);
+        }
+
+    }
+
+    // http://localhost:3000/pessoas/:estudanteId/matriculas/
+    static async registerMatricula (req, res) {
+        const { estudanteId } = req.params;
+        const matriculaBody = {
+            ...req.body,
+            estudante_id: Number(estudanteId) 
+        };
+        try {
+            const newMatricula = await db.Matriculas.create(matriculaBody);
+            return res.status(200).json(matriculaBody);             
+        } catch (error) {
+            this.#sendError(error, res);
+        }
+    }
+
+    // http://localhost:3000/pessoas/:estudanteId/matriculas/:matriculaId
+    static async editMatricula(req, res) {
+        const { estudanteId, matriculaId } = req.params;
+        const matriculaBody = req.body;
+        try {
+            const queryMatricula = await db.Matriculas.update(matriculaBody, {
+                where: {
+                    id: Number(matriculaId),
+                    estudante_id: Number(estudanteId) 
+                }
+            })
+
+            if(queryMatricula) {
+                const editedMatricula = await db.Matriculas.findOne({
+                    where: {
+                        id: Number(matriculaId),
+                        estudante_id: Number(estudanteId) 
+                    }
+                })
+                return res.status(200).json(editedMatricula);
+            }
+        } catch (error) {
+            this.#sendError(error, res);
+        }
+    }
+
+    // http://localhost:3000/pessoas/:estudanteId/matriculas/:matriculaId
+    static async deleteMatricula (req, res) {
+        const { matriculaId } = req.params;
+
+        try {
+            const deletedMatricula = await db.Matriculas.destroy({
+                where: {
+                    id: Number(matriculaId)
+                }
+            })
+
+            return res.status(200).send({
+                sucess: `Matriculas com o id [ ${matriculaId} ] deletada com sucesso! 🚧`
+            })
+        } catch (error) {
+            this.#sendError(error, res);
+        }
+    }
+
     #sendError(error, res) {
         return res.status(500).json(error.message);
     }
