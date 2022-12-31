@@ -1,7 +1,7 @@
 const db = require('../models');
 
 class NiveisController {
-    static async getAllNiveis (req, res) {
+    static async getAllNiveis(req, res) {
         try {
             const allTurmas = await db.Niveis.findAll();
             return res.status(200).json(allTurmas);
@@ -11,7 +11,7 @@ class NiveisController {
         
     }
 
-    static async getIdNiveis (req, res) {
+    static async getIdNiveis(req, res) {
         const { id } = req.params;
 
         try {
@@ -26,7 +26,7 @@ class NiveisController {
         }
     }
 
-    static async registerNivel (req, res) {
+    static async registerNivel(req, res) {
         const nivelBody = req.body;
         try {
             const newNivel = await db.Nivel.create(nivelBody);
@@ -37,7 +37,7 @@ class NiveisController {
     }
 
 
-    static async editNivel (req, res){
+    static async editNivel(req, res){
         const { id } = req.params;
         const nivelBody = req.body;
 
@@ -63,7 +63,7 @@ class NiveisController {
     }
 
 
-    static async deleteNivel (req, res) {
+    static async deleteNivel(req, res) {
         const { id } = req.params;
 
         try {
@@ -83,6 +83,21 @@ class NiveisController {
         }
     }
 
+    static async restoreNivel(req, res) {
+        const { id } = req.params;
+        try {
+            await db.Nivel.restore({
+                where: {
+                    id: Number(id)
+                }
+            })
+            return res.status(200).json({
+                mensagem: `[ ${id} ] Nivel restaurado com sucesso! ✅`
+            })
+        } catch (error) {
+            this.#sendError(error, res);
+        }
+    }
 
     #sendError(error, res) {
         return res.status(500).json(error.message);

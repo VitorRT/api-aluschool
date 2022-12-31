@@ -10,7 +10,7 @@ class PessoaController {
         }
     }
 
-    static async getIdPerson (req, res) {
+    static async getIdPerson(req, res) {
         const { id } = req.params;
         try {
             const person = await db.Pessoas.findOne({
@@ -25,7 +25,7 @@ class PessoaController {
         }
     }
 
-    static async postPerson (req, res) {
+    static async postPerson(req, res) {
         const personBody = req.body;
 
         try {
@@ -36,7 +36,7 @@ class PessoaController {
         }
     }
 
-    static async editPerson (req, res) {
+    static async editPerson(req, res) {
         const { id } = req.params;
         const personBody = req.body;
 
@@ -61,7 +61,7 @@ class PessoaController {
         }
     }
 
-    static async deletePerson (req, res) {
+    static async deletePerson(req, res) {
         const { id } = req.params;
 
         try {
@@ -84,8 +84,24 @@ class PessoaController {
         }
     }
 
+    static async restorePerson(req, res) {
+        const { id } = req.params;
+        try {
+           await db.Pessoas.restore({
+            where: {
+                id: Number(id)
+            }
+           });
+           return res.status(200).json({
+            mensagem: `[ ${id} ] Pessoa restaurada com sucesso! ✅`
+           }) 
+        } catch (error) {
+            this.#sendError(error, res);
+        };
+    };
+
     // http://localhost:3000/pessoas/:estudanteId/matriculas/:matriculaId
-    static async getOneMatricula (req, res) {
+    static async getOneMatricula(req, res) {
         const { estudanteId, matriculaId } = req.params;
 
         try {
@@ -103,7 +119,7 @@ class PessoaController {
     }
 
     // http://localhost:3000/pessoas/:estudanteId/matriculas/
-    static async registerMatricula (req, res) {
+    static async registerMatricula(req, res) {
         const { estudanteId } = req.params;
         const matriculaBody = {
             ...req.body,
@@ -144,7 +160,7 @@ class PessoaController {
     }
 
     // http://localhost:3000/pessoas/:estudanteId/matriculas/:matriculaId
-    static async deleteMatricula (req, res) {
+    static async deleteMatricula(req, res) {
         const { matriculaId } = req.params;
 
         try {
@@ -154,8 +170,27 @@ class PessoaController {
                 }
             })
 
-            return res.status(200).send({
-                sucess: `Matriculas com o id [ ${matriculaId} ] deletada com sucesso! 🚧`
+            return res.status(200).json({
+                warning: `Matriculas com o id [ ${matriculaId} ] deletada com sucesso! 🚧`
+            })
+        } catch (error) {
+            this.#sendError(error, res);
+        }
+    }
+
+    // http://localhost:3000/pessoas/:estudanteId/matriculas/:matriculaId/restaura
+    static async restoreMatricula(req, res) {
+        const { estudanteId, matriculaId } = req.params;
+        try {
+            await db.Matriculas.restore({
+                where: {
+                    id: Number(matriculaId),
+                    estudante_id: Number(estudanteId)
+                }
+            });
+
+            return res.status(200).json({
+                mensagem: `[ ${matriculaId} ] Matricula restaurada com sucesso! ✅`
             })
         } catch (error) {
             this.#sendError(error, res);
