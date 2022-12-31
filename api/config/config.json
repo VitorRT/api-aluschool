@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "nada disso. privado", 
+    "password": "MyCoffe@Forever10", 
     "database": "aluschool",
     "host": "127.0.0.1",
     "dialect": "mysql"
