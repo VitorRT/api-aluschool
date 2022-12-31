@@ -11,5 +11,5 @@ module.exports = router
 .post(end, controller.registerTurmas)
 .put(endid, controller.editTurmas)
 .delete(endid, controller.deleteTurmas)
-.post(endid, controller.restoreTurmas)
+.post(`${endid}/restaura`, controller.restoreTurmas)
 ;

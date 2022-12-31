@@ -11,5 +11,5 @@ module.exports = router
 .post(end, controller.registerNivel)
 .put(endid, controller.editNivel)
 .delete(endid, controller.deleteNivel)
-.post(endid, controller.restoreNivel)
+.post(`${endid}/restaura`, controller.restoreNivel)
 ;

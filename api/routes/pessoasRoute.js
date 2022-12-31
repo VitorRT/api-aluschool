@@ -17,5 +17,5 @@ module.exports = router
 .post(`${endid}/restaura`, controller.restorePerson)
 .put(`${end}/:estudanteId/matriculas/:matriculaId`, controller.editMatricula)
 .delete(`${end}/:estudanteId/matriculas/:matriculaId`, controller.deleteMatricula)
-.post(`${end}/:estudanteId/matriculas/:matriculaId`, controller.restoreMatricula)
+.post(`${end}/:estudanteId/matriculas/:matriculaId/restaura`, controller.restoreMatricula)
 ;
