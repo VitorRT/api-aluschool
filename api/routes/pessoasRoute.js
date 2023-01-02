@@ -7,7 +7,8 @@ const endid = `${end}/:id`;
 
 
 module.exports = router
-.get(end, controller.getAllPerson)
+.get(end, controller.getActivePeoples)
+.get(`${end}/all`, controller.getAllPeoples)
 .get(endid, controller.getIdPerson)
 .post(end, controller.postPerson)
 .put(endid, controller.editPerson)
