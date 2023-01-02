@@ -1,7 +1,7 @@
 # api-aluschool 📚
 
 ### Considerações iniciais
-_Antes de iniciar a documentação desta api, gostaria de escrever algumas considerações. Essa **API REST** foi feita inteiramente com o framework `Express.js` e com o **ORM** `sequelize` & `sequelize-cli` para as criações de modelos, migraçãos e sementes. Sobre a modelagem de dados, é algo bem simples pois o foco deste projeto é criar mais intimidade com o sequelize e treinar as implementações dos requisitos de usuário na aplicação! Agora sim, podemos começar 🚀_
+_Antes de iniciar a documentação desta api, gostaria de escrever algumas considerações. Essa **API REST** foi feita inteiramente com o framework `Express.js` e com o **ORM** `sequelize` & `sequelize-cli` para as criações de modelos, migraçãos e sementes. Sobre a modelagem de dados, é algo bem simples pois o foco deste projeto é criar mais intimidade com o sequelize e treinar as implementações dos requisitos de usuário na aplicação! E a modelagem de dados não foi feita por mim, e sim pelo time da [Alura](https://www.alura.com.br/). Apenas peguei esse modelo pronto e fiz essa aplicação. Agora sim, podemos começar 🚀_
 
 <hr/>
 
@@ -40,5 +40,17 @@ A ideia do projeto consiste em criar um sistema para uma escola, as funcionalida
 O mesmo se aplica para Níveis, Matriculas e Turmas.
 
 A modelagem de dados do projeto:
-> A Documentação ainda está sendo feita 📝
-> Projeto em Desenvolvimento... 🏗
+![modelagem-de-dados-aluschool](https://uploaddeimagens.com.br/images/004/281/430/full/modelagem_de_dados_aluschool.jpg?1672669210)
+
+
+## Endpoints 🔚
+
+Modelo   	| Endpoint			| Método			| Sobre	| BODY
+  :---------: 	|    :------:			|     :-----:				|  :-----:	| :----:
+Pessoas 		| **/pessoas**	| **_GET_**		|	Lista todas as pessoas cadastradas que não foram deletadas do sistema. | FALSE
+Pessoas	 	| **/pessoas**	| **_POST_**		| Cadastra uma pessoa no banco de dados. Você precisa passar um json no corpo da requisão | TRUE
+Pessoas	 	| **/pessoas/:id** | **_PUT_**	| Edita uma pessoa cadastrada no sistema. | TRUE
+Pessoas	 	| **/pessoas/:id** |  **_DELETE_** | Deleta não permanentemente uma pessoa cadastrada do sistema. | FALSE
+
+
+> A Documentação ainda está sendo feita 📝 <br/>  Projeto em Desenvolvimento... 🏗
